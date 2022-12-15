@@ -22,7 +22,7 @@ export class Usuario {
 
     @IsEmail()
     @Column({length: 255, nullable: false})
-    @ApiProperty({ example: "",})
+    @ApiProperty({ example: "usuario@gmail.com",})
 
     usuario: string 
 
