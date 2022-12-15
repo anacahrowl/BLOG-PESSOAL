@@ -24,7 +24,7 @@ export class Usuario {
     @Column({length: 255, nullable: false})
     @ApiProperty({ example: "",})
 
-    usuario: string //e-mail
+    usuario: string 
 
     @IsNotEmpty()
     @MinLength(8)
