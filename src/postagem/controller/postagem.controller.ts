@@ -12,7 +12,7 @@ import { PostagemService } from "../service/postagem.service";
 @ApiBearerAuth()
 export class PostagemController {
     constructor(private readonly PostagemService: PostagemService) { }
-
+    
     @Get()
     @HttpCode(HttpStatus.OK)
     findAll(): Promise<Postagem[]> {
@@ -26,10 +26,10 @@ export class PostagemController {
         return this.PostagemService.findById(id)
     }
 
-    @Get('/assunto/:assunto')
+    @Get('/titulo/:titulo')
     @HttpCode(HttpStatus.OK)
-    findByAssunto(@Param('assunto') assunto: string): Promise<Postagem[]> {
-        return this.PostagemService.findByAssunto(assunto)
+    findByTitulo(@Param('titulo') titulo: string): Promise<Postagem[]> {
+        return this.PostagemService.findByTitulo(titulo)
     }
 
 
