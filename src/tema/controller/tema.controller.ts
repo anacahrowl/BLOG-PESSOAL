@@ -25,10 +25,10 @@ export class TemaController {
         return this.temaService.findById(id)
     }
 
-    @Get('/descricao/:descricao')
+    @Get('/titulo/:titulo')
     @HttpCode(HttpStatus.OK)
-    findByDescricao(@Param('descricao') descricao: string): Promise<Tema[]> {
-        return this.temaService.findByDescricao(descricao)
+    findByTitulo(@Param('titulo') titulo: string): Promise<Tema[]> {
+        return this.temaService.findByTitulo(titulo)
     }
 
 
