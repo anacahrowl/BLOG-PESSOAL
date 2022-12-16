@@ -10,13 +10,11 @@ import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColum
 
         @PrimaryGeneratedColumn('increment')
         @ApiProperty()
-
         id: number
         
         @IsNotEmpty()
         @Column({length: 100, nullable: false})
         @ApiProperty()
-
         titulo: string
 
         @IsNotEmpty()
