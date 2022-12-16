@@ -10,20 +10,17 @@ export class Postagem {
 
     @PrimaryGeneratedColumn()
     @ApiProperty()
-
     id: number
 
     @IsNotEmpty()
     @MaxLength(100)
     @Column({ length: 100, nullable: false })
     @ApiProperty()
-
-    titulo: string
+    assunto: string
 
     @IsNotEmpty()
     @Column({ length: 1000, nullable: false })
     @ApiProperty()
-
     texto: string
 
     @ApiProperty({ type: () => Tema})
