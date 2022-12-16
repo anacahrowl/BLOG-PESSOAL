@@ -1,35 +1,40 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Post, Put, UseGuards } from "@nestjs/common";
-import { ApiTags } from "@nestjs/swagger";
-import { ApiBearerAuth } from "@nestjs/swagger/dist";
-import { JwtAuthGuard } from "../../auth/guard/jwt.auth.guard";
-import { Usuario } from "../entities/usuario.entity";
-import { UsuarioService } from "../service/usuario.service";
+import { Post } from "@nestjs/common/decorators";
+import { ApiProperty } from "@nestjs/swagger";
+import { IsEmail, IsNotEmpty, MinLength } from "class-validator";
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Postagem } from "../../postagem/entities/postagem.entity";
 
-@ApiTags('Usuario')
-@Controller('/usuarios')
-@ApiBearerAuth()
-export class UsuarioController {
-    constructor(private readonly usuarioService: UsuarioService) { }
+@Entity({name: "tb_usuarios"})
+export class Usuario {
 
-    @UseGuards(JwtAuthGuard)
-    @Get('/all')
-    @HttpCode(HttpStatus.OK)
-    findAll(): Promise<Usuario[]> {
-        return this.usuarioService.findAll();
-    }
+    @PrimaryGeneratedColumn()
+    @ApiProperty()
+    id: number
 
-    @HttpCode(HttpStatus.CREATED)
-    @Post('/cadastrar')
-    async create(@Body() usuario: Usuario): Promise<Usuario> {
-        return this.usuarioService.create(usuario);
-    }
 
-    @UseGuards(JwtAuthGuard)
-    @HttpCode(HttpStatus.OK)
-    @Put('/atualizar')
-    async update(@Body() usuario: Usuario): Promise<Usuario> {
-        return this.usuarioService.update(usuario)
-    }
+    @IsNotEmpty()
+    @Column({length: 255, nullable: false})
+    @ApiProperty()
+    nome: string
+
+    @IsEmail()
+    @Column({length: 255, nullable: false})
+    @ApiProperty({ example: "email@email.com.br"})
+    usuario: string //e-mail
+
+    @IsNotEmpty()
+    @MinLength(8)
+    @Column({length: 255, nullable: false})
+    @ApiProperty()
+    senha: string
+
+    @Column({length: 5000})
+    @ApiProperty()
+    foto: string
+
+    @ApiProperty({ type: () => Postagem})
+    @OneToMany(() => Postagem, (postagem) => postagem.usuario)
+    postagem: Postagem[]
 
 
 }
