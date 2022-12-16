@@ -16,19 +16,21 @@ export class Postagem {
     @MaxLength(100)
     @Column({ length: 100, nullable: false })
     @ApiProperty()
-    assunto: string
+    titulo: string
 
     @IsNotEmpty()
     @Column({ length: 1000, nullable: false })
     @ApiProperty()
     texto: string
 
+
     @ApiProperty({ type: () => Tema})
     @ManyToOne(() => Tema, (tema) => tema.postagem, {
         onDelete: "CASCADE"
     })
     tema: Tema
-    
+
+
     @ApiProperty({type: () => Usuario})
     @ManyToOne(() => Usuario, (usuario) => usuario.postagem, {
         onDelete: "CASCADE"
